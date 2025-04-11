@@ -97,4 +97,4 @@ After setting up, you can now start playing the chess game. If you're using a se
 
 ---
 
-© 2025 FireAnimationStudios. All rights reserved.
+© 2025 FireAnimationStudios & Idea from Fabi. All rights reserved.

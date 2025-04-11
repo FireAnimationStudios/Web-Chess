@@ -1,30 +1,34 @@
-# Schachspiel
+# Chess Game
 
-Dies ist ein einfaches Schachprojekt, das grundlegende Schachregeln enthält und eine benutzerfreundliche Oberfläche für Spieler bietet. Im Folgenden findest du eine kurze Erklärung, wie Schach gespielt wird.
+This is a simple chess project that includes basic chess rules and provides a user-friendly interface for players. Below is a brief explanation of how chess is played.
 
-![Schachbrett](https://i.postimg.cc/jj6bvTw9/chess.png)
+![Chessboard](https://i.postimg.cc/jj6bvTw9/chess.png)
 
-## Grundregeln des Schachs
+## Basic Chess Rules
 
-1. **Ziel des Spiels**: Das Ziel von Schach ist es, den **König** des Gegners schachmatt zu setzen. Das bedeutet, der König ist bedroht und kann nicht mehr entkommen.
+1. **Objective**: The goal of chess is to checkmate the opponent's **King**. This means the king is under threat and cannot escape.
    
-2. **Schachbrett**: Das Spiel wird auf einem 8x8 Schachbrett gespielt. Die Felder sind abwechselnd in hell und dunkel.
+2. **Chessboard**: The game is played on an 8x8 chessboard with alternating light and dark squares.
 
-3. **Züge der Figuren**:
-   - **König**: Bewegt sich ein Feld in jede Richtung.
-   - **Dame**: Bewegt sich beliebig viele Felder in jede Richtung.
-   - **Turm**: Bewegt sich beliebig viele Felder vertikal oder horizontal.
-   - **Läufer**: Bewegt sich beliebig viele Felder diagonal.
-   - **Springer**: Bewegt sich in einer "L"-Form (zwei Felder in eine Richtung, dann ein Feld in eine andere Richtung).
-   - **Bauer**: Bewegt sich normalerweise ein Feld nach vorne, kann aber beim ersten Zug zwei Felder ziehen. Er schlägt schräg.
+3. **Piece Moves**:
+   - **King**: Moves one square in any direction.
+   - **Queen**: Moves any number of squares in any direction.
+   - **Rook**: Moves any number of squares vertically or horizontally.
+   - **Bishop**: Moves any number of squares diagonally.
+   - **Knight**: Moves in an "L" shape (two squares in one direction, then one square in a perpendicular direction).
+   - **Pawn**: Moves one square forward, but on the first move, it can move two squares. It captures diagonally.
 
-4. **Schach**: Wenn der König eines Spielers bedroht wird, sagt man "Schach". Der Spieler muss den König retten, indem er entweder den König bewegt, eine andere Figur dazwischenstellt oder die bedrohende Figur schlägt.
+4. **Check**: When a player's king is under threat, it's called "check." The player must protect the king by either moving it, placing another piece between it and the threat, or capturing the threatening piece.
 
-5. **Schachmatt**: Wenn der König eines Spielers schachmatt gesetzt wird, ist das Spiel vorbei und der andere Spieler gewinnt.
+5. **Checkmate**: When a player's king is checkmated, the game is over, and the other player wins.
 
-## Wie man das Projekt nutzt
+## How to Use the Project
 
-1. Lade das Projekt herunter.
-2. Folge den Anweisungen im Code, um das Schachspiel zu starten und zu spielen.
+1. Download the project.
+2. Follow the instructions in the code to start and play the chess game.
 
-Viel Spaß beim Spielen!
+Enjoy playing!
+
+---
+
+© 2025 FireAnimationStudios. All rights reserved.

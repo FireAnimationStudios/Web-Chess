@@ -2,7 +2,7 @@
 
 This is a simple chess project that includes basic chess rules and provides a user-friendly interface for players. Below is a brief explanation of how chess is played.
 
-![Chessboard](https://i.postimg.cc/jj6bvTw9/chess.png)
+![Chessboard](https://i.postimg.cc/15WbKHmp/chess.png)
 
 ## Basic Chess Rules
 

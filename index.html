@@ -54,6 +54,7 @@
 
     .white { background-color: #374151; }
     .black { background-color: #1f2937; }
+    .highlight { background-color: #f97316 !important; }
 
     select, button, input[type="range"] {
       background-color: #f97316;
@@ -84,6 +85,16 @@
       color: #d1d5db;
     }
 
+    #winner {
+      display: none;
+      margin-top: 20px;
+      background-color: #f97316;
+      color: white;
+      font-size: 1.2rem;
+      padding: 15px 25px;
+      border-radius: 10px;
+    }
+
     footer {
       margin-top: 40px;
       font-size: 0.9rem;
@@ -97,15 +108,28 @@
   <div id="controls">
     <button id="newGameBtn">New game</button>
     <button id="undoBtn">Reverse move</button>
+    <label for="difficulty">AI Difficulty:</label>
+    <select id="difficulty">
+      <option value="1">Easy</option>
+      <option value="2">Medium</option>
+      <option value="3">Hard</option>
+    </select>
   </div>
   <div id="history"></div>
   <footer>Made with ❤️ by FireAnimationStudios & Edited by YOURNAME</footer>
 
+  
   <script>
     const boardElement = document.getElementById('board');
     const historyElement = document.getElementById('history');
+    const winnerElement = document.getElementById('winner');
+    const difficultySelect = document.getElementById('difficulty');
+
     let boardState = [];
     const gameHistory = [];
+    let selected = null;
+    let isWhiteTurn = true;
+    let gameOver = false;
 
     const initialBoard = [
       'r','n','b','q','k','b','n','r',
@@ -122,9 +146,6 @@
       'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
       'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
     };
-
-    let selected = null;
-    let isWhiteTurn = true;
 
     function renderBoard(position = initialBoard) {
       boardElement.innerHTML = '';
@@ -144,48 +165,53 @@
       return piece === piece.toUpperCase();
     }
 
-    function getRowCol(i) {
-      return [Math.floor(i / 8), i % 8];
+    function isPathClear(from, to) {
+      const dx = Math.sign(to % 8 - from % 8);
+      const dy = Math.sign(Math.floor(to / 8) - Math.floor(from / 8));
+      let x = from % 8 + dx;
+      let y = Math.floor(from / 8) + dy;
+
+      while ((x !== to % 8 || y !== Math.floor(to / 8))) {
+        const idx = y * 8 + x;
+        if (boardState[idx] !== '') return false;
+        x += dx;
+        y += dy;
+      }
+      return true;
     }
 
-    function isValidMove(from, to) {
-      const piece = boardState[from];
-      const target = boardState[to];
-      const [fromRow, fromCol] = getRowCol(from);
-      const [toRow, toCol] = getRowCol(to);
-      const dx = toCol - fromCol;
-      const dy = toRow - fromRow;
-
+    function isLegalMove(from, to, piece) {
+      const dx = to % 8 - from % 8;
+      const dy = Math.floor(to / 8) - Math.floor(from / 8);
       const absDx = Math.abs(dx);
       const absDy = Math.abs(dy);
 
-      if (!piece) return false;
-      if (target && isWhite(piece) === isWhite(target)) return false;
-
-      const dir = isWhite(piece) ? -1 : 1;
-
       switch (piece.toLowerCase()) {
-        case 'p':
-          if (dx === 0 && !target && dy === dir) return true;
-          if (dx === 0 && !target && dy === 2 * dir && ((fromRow === 6 && isWhite(piece)) || (fromRow === 1 && !isWhite(piece)))) return true;
-          if (absDx === 1 && dy === dir && target) return true;
-          return false;
+        case 'p': {
+          const direction = isWhite(piece) ? -1 : 1;
+          const startRow = isWhite(piece) ? 6 : 1;
+          if (dx === 0 && boardState[to] === '' && (dy === direction || (Math.floor(from / 8) === startRow && dy === 2 * direction && boardState[from + direction * 8] === '')))
+            return true;
+          if (absDx === 1 && dy === direction && boardState[to] && isWhite(boardState[to]) !== isWhite(piece))
+            return true;
+          break;
+        }
         case 'r':
-          if (dx !== 0 && dy !== 0) return false;
-          return isPathClear(from, to);
+          if ((dx === 0 || dy === 0) && isPathClear(from, to)) return true;
+          break;
         case 'n':
           return (absDx === 2 && absDy === 1) || (absDx === 1 && absDy === 2);
         case 'b':
-          if (absDx !== absDy) return false;
-          return isPathClear(from, to);
+          if (absDx === absDy && isPathClear(from, to)) return true;
+          break;
         case 'q':
-          if (dx === 0 || dy === 0 || absDx === absDy) return isPathClear(from, to);
-          return false;
+          if ((dx === 0 || dy === 0 || absDx === absDy) && isPathClear(from, to)) return true;
+          break;
         case 'k':
           return absDx <= 1 && absDy <= 1;
-        default:
-          return false;
       }
+      return false;
+    }
     }
 
     function isPathClear(from, to) {
